@@ -16,7 +16,7 @@ This tool allows students to **enter marks for each course**, automatically conv
 👉 **Use the Calculator Here**
 
 ```
-https://YOUR_USERNAME.github.io/cgpa-calculator/
+https://rafinmahfuz.github.io/CGPA-Calculator/
 ```
 
 ---
@@ -57,8 +57,6 @@ cgpa-calculator
 │
 ├── index.html
 ├── README.md
-└── screenshots
-    └── cgpa_calculator.png
 ```
 
 ---
@@ -68,7 +66,7 @@ cgpa-calculator
 ### 1️⃣ Clone the repository
 
 ```
-git clone https://github.com/YOUR_USERNAME/cgpa-calculator.git
+git clone https://github.com/rafinmahfuz/cgpa-calculator.git
 ```
 
 ### 2️⃣ Open the folder
