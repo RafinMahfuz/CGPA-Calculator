@@ -1,15 +1,15 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RUET CGPA Calculator</title>
+<title>ECE CGPA Calculator</title>
 
 <style>
 
 body{
-font-family: Arial;
-background: linear-gradient(135deg,#134E5E,#71B280);
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#3a7bd5,#3a6073);
 display:flex;
 justify-content:center;
 align-items:center;
@@ -21,8 +21,8 @@ margin:0;
 background:white;
 padding:30px;
 border-radius:12px;
-width:450px;
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
+width:420px;
+box-shadow:0 15px 35px rgba(0,0,0,0.3);
 }
 
 h2{
@@ -34,24 +34,20 @@ margin-bottom:20px;
 display:flex;
 justify-content:space-between;
 margin:8px 0;
+align-items:center;
 }
 
-input{
-width:70px;
+select{
 padding:5px;
-}
-
-.grade{
-width:60px;
-text-align:center;
-font-weight:bold;
+border-radius:5px;
 }
 
 .result{
 text-align:center;
-font-size:24px;
 margin-top:20px;
+font-size:24px;
 font-weight:bold;
+color:#222;
 }
 
 </style>
@@ -62,17 +58,17 @@ font-weight:bold;
 
 <div class="container">
 
-<h2>RUET CGPA Calculator</h2>
+<h2>ECE CGPA Calculator</h2>
 
-<div class="course">Circuits & Systems II (3) <input id="m1" type="number" oninput="calc()"> <span id="g1" class="grade"></span></div>
-<div class="course">C&S II Sessional (0.75) <input id="m2" type="number" oninput="calc()"> <span id="g2" class="grade"></span></div>
-<div class="course">OOP (3) <input id="m3" type="number" oninput="calc()"> <span id="g3" class="grade"></span></div>
-<div class="course">OOP Lab (1.5) <input id="m4" type="number" oninput="calc()"> <span id="g4" class="grade"></span></div>
-<div class="course">Analog Circuits (3) <input id="m5" type="number" oninput="calc()"> <span id="g5" class="grade"></span></div>
-<div class="course">Analog Lab (0.75) <input id="m6" type="number" oninput="calc()"> <span id="g6" class="grade"></span></div>
-<div class="course">Math 1217 (3) <input id="m7" type="number" oninput="calc()"> <span id="g7" class="grade"></span></div>
-<div class="course">Humanities (3) <input id="m8" type="number" oninput="calc()"> <span id="g8" class="grade"></span></div>
-<div class="course">Engineering Ethics (0.75) <input id="m9" type="number" oninput="calc()"> <span id="g9" class="grade"></span></div>
+<div class="course">Circuits & Systems II (3) <select id="c1"></select></div>
+<div class="course">C&S II Sessional (0.75) <select id="c2"></select></div>
+<div class="course">OOP (3) <select id="c3"></select></div>
+<div class="course">OOP Lab (1.5) <select id="c4"></select></div>
+<div class="course">Analog Circuits (3) <select id="c5"></select></div>
+<div class="course">Analog Lab (0.75) <select id="c6"></select></div>
+<div class="course">Math 1217 (3) <select id="c7"></select></div>
+<div class="course">Humanities (3) <select id="c8"></select></div>
+<div class="course">Engineering Ethics (0.75) <select id="c9"></select></div>
 
 <div class="result" id="cgpa">CGPA : 0.00</div>
 
@@ -80,52 +76,61 @@ font-weight:bold;
 
 <script>
 
+const gradeMap={
+"A+":4.00,
+"A":3.75,
+"A-":3.50,
+"B+":3.25,
+"B":3.00,
+"B-":2.75,
+"C+":2.50,
+"C":2.25,
+"D":2.00,
+"F":0
+}
+
 const credits=[3,0.75,3,1.5,3,0.75,3,3,0.75]
 
-function getGrade(mark){
+function populateGrades(){
 
-if(mark>=80) return ["A+",4]
-if(mark>=75) return ["A",3.75]
-if(mark>=70) return ["A-",3.5]
-if(mark>=65) return ["B+",3.25]
-if(mark>=60) return ["B",3]
-if(mark>=55) return ["B-",2.75]
-if(mark>=50) return ["C+",2.5]
-if(mark>=45) return ["C",2.25]
-if(mark>=40) return ["D",2]
-return ["F",0]
+let options="<option value=''>Grade</option>"
+
+for(let grade in gradeMap){
+options += `<option value="${gradeMap[grade]}">${grade}</option>`
+}
+
+for(let i=1;i<=9;i++){
+let select=document.getElementById("c"+i)
+select.innerHTML=options
+select.addEventListener("change",calculateCGPA)
+}
 
 }
 
-function calc(){
+function calculateCGPA(){
 
 let totalPoints=0
 let totalCredits=0
 
 for(let i=1;i<=9;i++){
 
-let mark=parseFloat(document.getElementById("m"+i).value)
+let grade=parseFloat(document.getElementById("c"+i).value)
 
-if(!isNaN(mark)){
-
-let grade=getGrade(mark)
-
-document.getElementById("g"+i).innerText=grade[0]
-
-totalPoints+=grade[1]*credits[i-1]
-totalCredits+=credits[i-1]
-
-}else{
-document.getElementById("g"+i).innerText=""
+if(!isNaN(grade)){
+totalPoints += grade * credits[i-1]
+totalCredits += credits[i-1]
 }
 
 }
 
-let cgpa= totalCredits ? totalPoints/totalCredits : 0
+let cgpa = totalCredits ? (totalPoints/totalCredits) : 0
 
-document.getElementById("cgpa").innerText="CGPA : "+cgpa.toFixed(2)
+document.getElementById("cgpa").innerText =
+"CGPA : " + cgpa.toFixed(2)
 
 }
+
+populateGrades()
 
 </script>
 
