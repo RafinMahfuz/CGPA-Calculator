@@ -49,23 +49,6 @@ https://YOUR_USERNAME.github.io/cgpa-calculator/
 
 ---
 
-# 📸 Screenshot
-
-Add a screenshot of the calculator here after hosting.
-
-Example:
-
-```
-/screenshots/cgpa_calculator.png
-```
-
-Then display it like this:
-
-```
-![RUET CGPA Calculator Screenshot](screenshots/cgpa_calculator.png)
-```
-
----
 
 # 📂 Project Structure
 
